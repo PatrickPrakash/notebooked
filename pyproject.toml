@@ -22,6 +22,19 @@ dependencies = [
     "pydantic>=2.0.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "ruff>=0.1.0",
+]
+azure = [
+    "azure-ai-ml>=1.0.0",
+    "azure-identity>=1.14.0",
+]
+gcp = [
+    "google-cloud-aiplatform>=1.36.0",
+]
+
 [project.scripts]
 notebooked = "notebooked.cli:main"
 

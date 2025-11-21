@@ -48,6 +48,16 @@ def init():
         "aws": {
             "region": "us-east-1"
         },
+        "azure": {
+            "subscription_id": "YOUR_SUBSCRIPTION_ID",
+            "resource_group": "YOUR_RESOURCE_GROUP",
+            "workspace_name": "YOUR_WORKSPACE_NAME"
+        },
+        "gcp": {
+            "project_id": "YOUR_PROJECT_ID",
+            "location": "us-central1",
+            "staging_bucket": "gs://your-staging-bucket"
+        },
         "experiments": [
             {
                 "name": "example-experiment",
@@ -114,7 +124,7 @@ def convert(ctx, experiment_name):
 
 @main.command()
 @click.argument('experiment_name')
-@click.option('--provider', type=click.Choice(['sagemaker', 'local']), default='sagemaker', help='Compute provider')
+@click.option('--provider', type=click.Choice(['sagemaker', 'local', 'azure', 'gcp']), default='sagemaker', help='Compute provider')
 @click.option('--wait/--no-wait', default=True, help='Wait for training to complete')
 @click.pass_context
 def train(ctx, experiment_name, provider, wait):
@@ -137,6 +147,20 @@ def train(ctx, experiment_name, provider, wait):
             )
         elif provider == 'local':
             impl = LocalProvider()
+        elif provider == 'azure':
+            from .providers.azure_ml import AzureProvider
+            impl = AzureProvider(
+                subscription_id=config.azure.subscription_id,
+                resource_group=config.azure.resource_group,
+                workspace_name=config.azure.workspace_name
+            )
+        elif provider == 'gcp':
+            from .providers.vertex_ai import VertexAIProvider
+            impl = VertexAIProvider(
+                project_id=config.gcp.project_id,
+                location=config.gcp.location,
+                staging_bucket=config.gcp.staging_bucket
+            )
         
         source_dir = Path("generated") / experiment_name
         
@@ -162,10 +186,10 @@ def train(ctx, experiment_name, provider, wait):
 
 @main.command()
 @click.argument('experiment_name')
-@click.option('--model-uri', help='S3 URI of the model artifact')
+@click.option('--model-uri', help='URI of the model artifact')
 @click.option('--endpoint-name', help='Name for the endpoint')
 @click.option('--serverless', is_flag=True, help='Deploy to serverless endpoint')
-@click.option('--provider', type=click.Choice(['sagemaker', 'local']), default='sagemaker', help='Compute provider')
+@click.option('--provider', type=click.Choice(['sagemaker', 'local', 'azure', 'gcp']), default='sagemaker', help='Compute provider')
 @click.pass_context
 def deploy(ctx, experiment_name, model_uri, endpoint_name, serverless, provider):
     """Deploy model to endpoint"""
@@ -187,6 +211,20 @@ def deploy(ctx, experiment_name, model_uri, endpoint_name, serverless, provider)
             )
         elif provider == 'local':
             impl = LocalProvider()
+        elif provider == 'azure':
+            from .providers.azure_ml import AzureProvider
+            impl = AzureProvider(
+                subscription_id=config.azure.subscription_id,
+                resource_group=config.azure.resource_group,
+                workspace_name=config.azure.workspace_name
+            )
+        elif provider == 'gcp':
+            from .providers.vertex_ai import VertexAIProvider
+            impl = VertexAIProvider(
+                project_id=config.gcp.project_id,
+                location=config.gcp.location,
+                staging_bucket=config.gcp.staging_bucket
+            )
         
         if not model_uri:
             click.echo("Error: --model-uri is required")
@@ -209,7 +247,7 @@ def deploy(ctx, experiment_name, model_uri, endpoint_name, serverless, provider)
 
 
 @main.command()
-@click.option('--provider', type=click.Choice(['local', 'sagemaker']), default='local', help='Target provider for the CI pipeline')
+@click.option('--provider', type=click.Choice(['local', 'sagemaker', 'azure', 'gcp']), default='local', help='Target provider for the CI pipeline')
 @click.option('--branch', default='main', help='Branch to trigger the workflow')
 def generate_workflow(provider, branch):
     """Generate GitHub Actions workflow"""

@@ -19,6 +19,20 @@ class AWSConfig(BaseModel):
     role: Optional[str] = Field(default=None, description="IAM Role ARN")
 
 
+class AzureConfig(BaseModel):
+    """Azure configuration"""
+    subscription_id: Optional[str] = Field(default=None, description="Azure Subscription ID")
+    resource_group: Optional[str] = Field(default=None, description="Azure Resource Group")
+    workspace_name: Optional[str] = Field(default=None, description="Azure ML Workspace Name")
+
+
+class GCPConfig(BaseModel):
+    """GCP configuration"""
+    project_id: Optional[str] = Field(default=None, description="GCP Project ID")
+    location: str = Field(default="us-central1", description="GCP Region")
+    staging_bucket: Optional[str] = Field(default=None, description="GCS Bucket for staging artifacts")
+
+
 class ExperimentConfig(BaseModel):
     """Experiment configuration"""
     name: str = Field(..., description="Unique name of the experiment")
@@ -44,6 +58,8 @@ class ProjectConfig(BaseModel):
     """Root project configuration"""
     mlflow: MLFlowConfig = Field(default_factory=MLFlowConfig)
     aws: AWSConfig = Field(default_factory=AWSConfig)
+    azure: AzureConfig = Field(default_factory=AzureConfig)
+    gcp: GCPConfig = Field(default_factory=GCPConfig)
     experiments: List[ExperimentConfig] = Field(default_factory=list)
     
     def get_experiment(self, name: str) -> ExperimentConfig:
