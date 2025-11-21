@@ -1,0 +1,24 @@
+mlflow:
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "test-experiment"
+
+aws:
+  region: "us-east-1"
+  role: "arn:aws:iam::123456789012:role/service-role/AmazonSageMaker-ExecutionRole-20200101T000001"
+
+experiments:
+  - name: "test_experiment"
+    description: "A test experiment"
+    notebook: "test_notebook.ipynb"
+    data_path: "s3://my-bucket/data"
+    hyperparameters:
+      epochs: 10
+      batch_size: 32
+      learning_rate: 0.001
+    instance_type: "ml.m5.xlarge"
+  - name: "anomaly-detection"
+    notebook: "notebooks/anomaly_detection.ipynb"
+    data_path: "data/ecg"
+    hyperparameters:
+      epochs: 5
+      learning_rate: 0.001
