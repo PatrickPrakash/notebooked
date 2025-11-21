@@ -208,5 +208,21 @@ def deploy(ctx, experiment_name, model_uri, endpoint_name, serverless, provider)
         sys.exit(1)
 
 
+@main.command()
+@click.option('--provider', type=click.Choice(['local', 'sagemaker']), default='local', help='Target provider for the CI pipeline')
+@click.option('--branch', default='main', help='Branch to trigger the workflow')
+def generate_workflow(provider, branch):
+    """Generate GitHub Actions workflow"""
+    from .core.workflow import WorkflowGenerator
+    
+    try:
+        generator = WorkflowGenerator()
+        path = generator.generate(provider=provider, branch=branch)
+        click.echo(f"Generated GitHub Actions workflow at: {path}")
+    except Exception as e:
+        click.echo(f"Error generating workflow: {e}", err=True)
+        sys.exit(1)
+
+
 if __name__ == '__main__':
     main()
