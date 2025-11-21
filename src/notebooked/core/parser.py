@@ -126,8 +126,8 @@ class NotebookParser:
             if cell.cell_type != 'code':
                 continue
             
-            # Skip if cell has explicit tags (except imports)
-            if cell.tags and 'imports' not in cell.tags:
+            # Skip if cell has explicit tags (we assume tags handle everything)
+            if cell.tags:
                 continue
             
             code = cell.code.strip()
