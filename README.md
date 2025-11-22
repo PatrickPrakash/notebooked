@@ -130,7 +130,7 @@ notebooked/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/notebooked.git
+git clone https://github.com/patrickprakash/notebooked.git
 cd notebooked
 
 # Install in editable mode
