@@ -466,9 +466,9 @@ def test_your_provider_train():
 
 ## Questions?
 
-- **General Questions**: Open a [GitHub Discussion](https://github.com/yourusername/notebooked/discussions)
-- **Bug Reports**: Open an [Issue](https://github.com/yourusername/notebooked/issues)
-- **Feature Requests**: Open an [Issue](https://github.com/yourusername/notebooked/issues) with `enhancement` label
+- **General Questions**: Open a [GitHub Discussion](https://github.com/patrickprakash/notebooked/discussions)
+- **Bug Reports**: Open an [Issue](https://github.com/patrickprakash/notebooked/issues)
+- **Feature Requests**: Open an [Issue](https://github.com/patrickprakash/notebooked/issues) with `enhancement` label
 
 ---
 
