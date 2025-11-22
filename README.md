@@ -348,34 +348,6 @@ graph TB
     G --> I[Production Endpoint]
 ```
 
----
-
-## 🧪 Testing
-
-### Example: Anomaly Detection
-
-We include a comprehensive example notebook demonstrating LSTM Autoencoders for ECG anomaly detection:
-
-```bash
-# Convert the example notebook
-notebooked convert anomaly-detection
-
-# Train locally
-notebooked train anomaly-detection --provider local
-
-# Train on SageMaker
-notebooked train anomaly-detection --provider sagemaker --wait
-```
-
-The example demonstrates:
-- Complex model architectures (Encoder, Decoder, Autoencoder)
-- Data preprocessing with sequence generation
-- MLFlow integration
-- Best model checkpointing
-- SageMaker-ready inference handlers
-
----
-
 ## 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
@@ -409,9 +381,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/notebooked/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/notebooked/discussions)
-- **Email**: your.email@example.com
+- **Issues**: [GitHub Issues](https://github.com/patrickprakash/notebooked/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/patrickprakash/notebooked/discussions)
+- **Email**: patrickprakash8@gmail.com
 
 ---
 
