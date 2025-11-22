@@ -376,6 +376,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with [Click](https://click.palletsprojects.com/) for CLI
 - Uses [Pydantic](https://docs.pydantic.dev/) for configuration validation
 - Powered by [MLflow](https://mlflow.org/) for experiment tracking
+- Uses a cool project called [PipReqs](https://github.com/bndr/pipreqs) to generate the requirements.txt file
 
 ---
 
