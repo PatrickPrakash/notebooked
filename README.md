@@ -4,7 +4,7 @@
 
 # 📓 Notebooked
 
-**Transform Jupyter Notebooks into Production-Ready ML Pipelines**
+**Transform Jupyter Notebooks into Production-Ready ML Pipelines/Scripts**
 
 Notebooked is a Python CLI tool that converts tagged Jupyter notebooks into production-ready training, inference, and deployment scripts for AWS SageMaker, Azure ML, and Google Cloud Vertex AI.
 
